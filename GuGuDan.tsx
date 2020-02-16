@@ -1,0 +1,103 @@
+import * as React from "react";
+import { useState, useCallback, useRef } from "react";
+
+const GuGuDan = () => {
+  const [first, setFirst] = useState(Math.ceil(Math.random() * 9));
+  const [second, setSecond] = useState(Math.ceil(Math.random() * 9));
+  const [value, setValue] = useState("");
+  const [result, setResult] = useState("");
+  const inputEl = useRef<HTMLInputElement>(null);
+
+  const onChangeValue = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setValue(e.target.value);
+    },
+    []
+  );
+
+  const onSubmitValue = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const input = inputEl.current;
+      if (first * second === parseInt(value)) {
+        setResult("딩동댕");
+        setFirst(Math.ceil(Math.random() * 9));
+        setSecond(Math.ceil(Math.random() * 9));
+        setValue("");
+        if (input) {
+          input.focus();
+        }
+      } else {
+        setResult("땡");
+        setValue("");
+        if (input) {
+          input.focus();
+        }
+      }
+    },
+    [first, second, value, result]
+  );
+  return (
+    <div>
+      <div>
+        {first} 곱하기 {second} 는?
+      </div>
+      <form onSubmit={onSubmitValue}>
+        <input onChange={onChangeValue} value={value} ref={inputEl} />
+        <button type="submit">제출</button>
+      </form>
+      <div>{result}</div>
+    </div>
+  );
+};
+
+export default GuGuDan;
+  
+// import * as React from 'react';
+// import { useState, useRef } from 'react';
+
+// const GuGuDan = () => {
+//     const [first, setFirst] = useState<number>(Math.ceil(Math.random() * 9));
+//     const [second, setSecond] = useState(Math.ceil(Math.random() * 9));
+//     const [value, setValue] = useState('');
+//     const [result, setResult] = useState('');
+//     const inputEl = useRef<HTMLInputElement>(null);
+
+//     const onSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
+//         e.preventDefault();
+//         const input = inputEl.current;
+//         if (parseInt(value) === first * second) { // 정답 맞췄으면
+//             setResult('정답');
+//             setFirst(Math.ceil(Math.random() * 9));
+//             setSecond(Math.ceil(Math.random() * 9));
+//             setValue('');
+//             if (input) {
+//                 input.focus();
+//             }
+        
+//         } else {
+//             setResult('땡');
+//             setValue('');
+//             if (input) {
+//                 input.focus();
+//             }
+//         }
+//     }
+
+//     return (
+//         <>
+//             <div>{first} 곱하기 {second}는?</div>
+//             <form onSubmit={onSubmitForm}>
+//                 <input
+//                     ref={inputEl}
+//                     type="number"
+//                     value={value}
+//                     onChange={(e) => setValue(e.target.value)}
+//                 />
+//             </form>
+//             <div>{result}</div>
+//         </>
+//     )
+// }
+
+// export default GuGuDan;
