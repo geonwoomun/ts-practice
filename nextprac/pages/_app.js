@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-const Test = ({ Component }) => {
+const Test = ({ Component, pageProps }) => {
   return (
     <>
       <ul>
@@ -19,10 +19,28 @@ const Test = ({ Component }) => {
             <a>카페</a>
           </Link>
         </li>
+        <li>
+          <Link href="/ssrtest">
+            <a>SSR</a>
+          </Link>
+        </li>
       </ul>
-      <Component />
+      <Component {...pageProps} />
     </>
   );
 };
+
+Test.getInitialProps = async context => {
+  const {  ctx, Component } = context;
+  console.log(context);
+  console.log(ctx);
+  console.dir(Component);
+  let pageProps = {};
+  if (Component.getInitialProps ) {
+    pageProps = await Component.getInitialProps();
+  }
+
+  return { pageProps };
+}
 
 export default Test;
