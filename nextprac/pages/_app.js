@@ -32,12 +32,9 @@ const Test = ({ Component, pageProps }) => {
 
 Test.getInitialProps = async context => {
   const {  ctx, Component } = context;
-  console.log(context);
-  console.log(ctx);
-  console.dir(Component);
   let pageProps = {};
   if (Component.getInitialProps ) {
-    pageProps = await Component.getInitialProps();
+    pageProps = await Component.getInitialProps(ctx);
   }
 
   return { pageProps };

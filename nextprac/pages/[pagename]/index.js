@@ -1,11 +1,8 @@
 import React from 'react';
-import {useRouter} from 'next/router';
 import Blog from '../../components/blog';
 import Cafe from '../../components/cafe';
 
-const Dynamic = () => {
-    const router = useRouter();
-    const {pagename} = router.query;
+const Dynamic = ({pagename}) => {
     return (
         <div>
             {
@@ -15,5 +12,13 @@ const Dynamic = () => {
         </div>
     );
 };
+
+Dynamic.getInitialProps = async context => {
+    const { pagename } = context.query;
+    // pagename에 따른 api 요청을 한다!
+    // 또는 redux를 사용할 경우 pagename에 따라서 다른 dispatch를 실행시킨다!!
+
+    return { pagename }
+}
 
 export default Dynamic;

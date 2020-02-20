@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Cafe = ({title}) => {
-    console.log(title);
+const Cafe = () => {
+    
     return (
         <div>
             카페입니다.

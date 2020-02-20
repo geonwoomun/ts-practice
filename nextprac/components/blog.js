@@ -1,7 +1,6 @@
 import React from 'react';
 
-const Blog = ({title}) => {
-    console.log(title);
+const Blog = () => {
     return (
         <div>
             블로그입니다!
