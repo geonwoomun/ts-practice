@@ -10,18 +10,13 @@ const Test = ({ Component, pageProps }) => {
           </Link>
         </li>
         <li>
-          <Link href="/[pagename]" as="/blog">
-            <a>블로그</a>
+          <Link href="/[pagename]" as="/superman">
+            <a>슈퍼맨</a>
           </Link>
         </li>
         <li>
-          <Link href="/[pagename]" as="/cafe">
-            <a>카페</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/ssrtest">
-            <a>SSR</a>
+          <Link href="/[pagename]" as="/batman">
+            <a>배트맨</a>
           </Link>
         </li>
       </ul>
