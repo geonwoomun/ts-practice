@@ -1,38 +1,28 @@
 import React from "react";
-import Link from "next/link";
-const Test = ({ Component, pageProps }) => {
+import withRedux from 'next-redux-wrapper';
+import { Provider } from 'react-redux'; 
+import { createStore, compose, applyMiddleware } from 'redux';
+import reducer from '../reducers';
+import { composeWithDevTools } from 'redux-devtools-extension';
+
+const Test = ({ Component, store }) => {
   return (
-    <>
-      <ul>
-        <li>
-          <Link href="/">
-            <a>Home</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/[pagename]" as="/superman">
-            <a>슈퍼맨</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/[pagename]" as="/batman">
-            <a>배트맨</a>
-          </Link>
-        </li>
-      </ul>
-      <Component {...pageProps} />
-    </>
+    <Provider store={store}>
+      <Component/>
+    </Provider>
   );
 };
 
-Test.getInitialProps = async context => {
-  const {  ctx, Component } = context;
-  let pageProps = {};
-  if (Component.getInitialProps ) {
-    pageProps = await Component.getInitialProps(ctx);
-  }
+const configureStore = (initialState, options) => {
+  const middlewares = []; // 미들웨어들을 넣으면 된다.
+  const enhancer = process.env.NODE_ENV === 'production' ? 
+    compose(applyMiddleware(...middlewares)) : 
+        composeWithDevTools(
+          applyMiddleware(...middlewares)
+        );
+  const store = createStore(reducer, initialState, enhancer);
+  return store;
 
-  return { pageProps };
 }
 
-export default Test;
+export default withRedux(configureStore)(Test);
