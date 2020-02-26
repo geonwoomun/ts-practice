@@ -1,7 +1,7 @@
 export const initialState = 0;
 
-export const COUNT_PLUS = "COUNT_PLUS";
-export const COUNT_MINUS = "COUNT_MINUS";
+export const COUNT_PLUS = 'COUNT_PLUS';
+export const COUNT_MINUS = 'COUNT_MINUS';
 
 export const countPlusAction = () => ({
     type : COUNT_PLUS
